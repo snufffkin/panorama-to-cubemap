@@ -12,6 +12,7 @@
     .settings > * {
       margin-top: 12px;
       margin-bottom: 12px;
+      display: none;
     }
     #cubemap {
       width: 800px;
@@ -26,19 +27,15 @@
 
 <body>
   <header>
-    <h1>Panorama to Cubemap</h1>
-    <aside>Convert a 360° panorama to six cube faces.</aside>
+    <h1>Генерация Скайбокса</h1>
   </header>
 
   <main>
     <section>
-      <h2>Upload</h2>
-      <label>Upload a panoramic image: <input id="imageInput" type="file" accept="image/*"></label>
-      <ul>
-        <li>The image should be formatted with the equirectangular projection.</li>
-        <li>The image should have an aspect ratio of 2:1 (the width must be exactly twice the height).</li>
-      </ul>
-      <p>A cubemap will be generated from your image.</p>
+      <h2>Загрузка</h2>
+      <label>Загрузите панорамное изображение: <input id="imageInput" type="file" accept="image/*"></label>
+
+      <p>Скайбокс будет сгенерирован из загруженного изображения.</p>
     </section>
 
     <section class="settings">
@@ -60,8 +57,8 @@
     </section>
 
     <section>
-      <h2>Output</h2>
-      <p>Click each cube face to save it to your computer.</p>
+      <h2>Загрузка</h2>
+      <p>Чтобы скачать скайбокс, кликни на каждую сторону куба.</p>
       <div id="cubemap">
         <b id="generating" style="visibility:hidden">Generating...</b>
         <output id="faces"></output>
@@ -70,11 +67,6 @@
   </main>
 
   <footer>
-    <p>
-      <small>By <a href="https://github.com/jaxry">Lucas Crane</a></small>
-      <br>
-      <small>Design by <a href="http://motherfuckingwebsite.com/">mf</a></small>
-    </p>
   </footer>
 
   <script src="main.js"></script>
