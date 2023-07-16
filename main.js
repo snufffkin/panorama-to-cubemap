@@ -30,16 +30,24 @@ class Input {
   }
 }
 
+const nameMap = {
+  ny : 'SkyboxDn',
+  py : 'SkyboxUp',
+  px : 'SkyboxFt',
+  nz : 'SkyboxLf',
+  pz : 'SkyboxRt',
+  nx : 'SkyboxBk'
+};
+
 class CubeFace {
   constructor(faceName) {
     this.faceName = faceName;
-
     this.anchor = document.createElement('a');
     this.anchor.style.position='absolute';
     this.anchor.title = faceName;
 
     this.img = document.createElement('img');
-    this.img.style.filter = 'blur(4px)';
+    this.img.style.filter = 'blur(10px)';
 
     this.anchor.appendChild(this.img);
   }
@@ -52,7 +60,7 @@ class CubeFace {
 
   setDownload(url, fileExtension) {
     this.anchor.href = url;
-    this.anchor.download = `${this.faceName}.${fileExtension}`;
+    this.anchor.download = `${nameMap[this.faceName]}.${fileExtension}`;
     this.img.style.filter = '';
   }
 }
@@ -62,6 +70,35 @@ function removeChildren(node) {
     node.removeChild(node.firstChild);
   }
 }
+
+function updateDownloadLinks() {
+  const links = document.querySelectorAll('#faces a');
+  links.forEach(link => {
+    const oldName = link.download.split('.')[0];
+    const extension = link.download.split('.')[1];
+    switch (oldName) {
+      case 'px':
+        link.download = `SkyboxFt.${extension}`;
+        break;
+      case 'nx':
+        link.download = `SkyboxBk.${extension}`;
+        break;
+      case 'py':
+        link.download = `SkyboxUp.${extension}`;
+        break;
+      case 'ny':
+        link.download = `SkyboxDn.${extension}`;
+        break;
+      case 'pz':
+        link.download = `SkyboxRt.${extension}`;
+        break;
+      case 'nz':
+        link.download = `SkyboxLf.${extension}`;
+        break;
+    }
+  });
+}
+
 
 const mimeType = {
   'jpg': 'image/jpeg',
@@ -163,6 +200,7 @@ function renderFace(data, faceName, position) {
       dom.generating.style.visibility = 'hidden';
       finished = 0;
       workers = [];
+      updateDownloadLinks()
     }
   };
 
